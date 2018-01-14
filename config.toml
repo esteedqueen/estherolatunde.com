@@ -1,0 +1,43 @@
+baseURL = "http://estherolatunde.com/"
+languageCode = "en-us"
+title = "Esther Olatunde's Blog"
+
+theme = "kiss"
+copyright = "&copy; <a href=\"https://github.com/esteedqueen\">Esther Olatunde</a> 2018"
+disqusShortname = "shortname"
+googleAnalytics = ""
+# Number of posts per page
+Paginate = 5
+enableRobotsTXT = true 
+
+
+[params.assets]
+customCSS = ["css/custom.css"]
+
+[params.info]
+adsense = "" # Adsense ID (ID only, without ca-pub-)
+enableSocial = false # Adds OpenGraph and Twitter cards
+homeTitle = "" # Title for home page
+poweredby = true # Adds powered by Hugo and Kiss below Copyright section
+
+[params.opengraph.facebook]
+admins = [] # array of Facebook IDs
+appID = ""
+pageID = ""
+
+[params.opengraph.twitter]
+page = "" # Twitter Page username. If not set, params.social.twitter will be used.
+
+[params.social]
+
+twitter = "MsEOlatunde"
+github = "esteedqueen"
+email = "ea.olatunde@gmail.com"
+instagram = "that_esther"
+
+[taxonomies]
+tag ="tags"
+
+[blackfriday]
+hrefTargetBlank = true
+
