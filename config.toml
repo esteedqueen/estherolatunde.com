@@ -1,14 +1,19 @@
 baseURL = "http://estherolatunde.com/"
 languageCode = "en-us"
-title = "Esther Olatunde's Blog"
+title = "Esther Olatunde"
 
 theme = "kiss"
 copyright = "&copy; <a href=\"https://github.com/esteedqueen\">Esther Olatunde</a> 2018"
-disqusShortname = "shortname"
 googleAnalytics = ""
 # Number of posts per page
 Paginate = 5
 enableRobotsTXT = true 
+
+[[menu.main]]
+    name = "About"
+    pre = "<i class='fa fa-heart'></i>"
+    identifier = "about"
+    url = "/about/"
 
 
 [params.assets]
@@ -17,8 +22,8 @@ customCSS = ["css/custom.css"]
 [params.info]
 adsense = "" # Adsense ID (ID only, without ca-pub-)
 enableSocial = false # Adds OpenGraph and Twitter cards
-homeTitle = "" # Title for home page
-poweredby = true # Adds powered by Hugo and Kiss below Copyright section
+homeTitle = "Esther Olatunde's Personal Website"
+poweredby = false # Adds powered by Hugo and Kiss below Copyright section
 
 [params.opengraph.facebook]
 admins = [] # array of Facebook IDs
@@ -30,10 +35,8 @@ page = "" # Twitter Page username. If not set, params.social.twitter will be use
 
 [params.social]
 
-twitter = "MsEOlatunde"
 github = "esteedqueen"
-email = "ea.olatunde@gmail.com"
-instagram = "that_esther"
+twitter = "MsEOlatunde"
 
 [taxonomies]
 tag ="tags"

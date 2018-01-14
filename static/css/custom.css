@@ -1,0 +1,11 @@
+html, body, section, .section, nav, .nav {
+  background-color: #f7ebec;
+}
+
+a {
+  color: #004ba8;
+}
+
+a:hover, a:focus, a:visited {
+  color: #d3ab9e;
+}
