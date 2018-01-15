@@ -39,7 +39,8 @@ github = "esteedqueen"
 twitter = "MsEOlatunde"
 
 [taxonomies]
-tag ="tags"
+category = "categories"
+tag = "tags"
 
 [blackfriday]
 hrefTargetBlank = true

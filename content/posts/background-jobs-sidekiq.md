@@ -3,6 +3,10 @@ title: "Background Jobs with Sidekiq"
 date: 2017-05-02T19:41:23+01:00
 draft: false
 type: "post"
+tags: 
+  - rails
+  - sidekiq
+  - background jobs
 ---
 
 Background jobs in rails applications make our development lives easier. 
