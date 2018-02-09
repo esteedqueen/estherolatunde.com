@@ -3,13 +3,13 @@ title: "Background Jobs with Sidekiq"
 date: 2017-05-02T19:41:23+01:00
 draft: false
 type: "post"
-tags: 
+tags:
   - rails
   - sidekiq
   - background jobs
 ---
 
-Background jobs in rails applications make our development lives easier. 
+Background jobs in rails applications make our development lives easier.
 
 We rely on them for a lot of things - common use cases include sending emails, push notifications, processing 3rd party API interactions, transactions and long-running requests that tie up server resources.
 
@@ -20,9 +20,9 @@ I've been using [Resque](https://github.com/resque/resque) for a while but recen
 ## Why Sidekiq?
 I made the move for two reasons:
 
-  1. Failed jobs on Resque : 
+  1. Failed jobs on Resque:
 ![Failed jobs on Resque](/images/resquefailedjobs.png)
-  
+
   2. Performance: Apart from dealing with lots of failed jobs, this chart on  Sidekiq [repository](https://github.com/mperham/sidekiq#performance) caught my interest so I decided to give it a try.
 ![Performance](/images/sidekiqperformance.png)
 
@@ -71,7 +71,7 @@ gem 'sidekiq'
 Sidekiq uses Redis to store all of its job and operational data.
 
 By default, Sidekiq tries to connect to Redis at localhost:6379. For production app, you will need to setup env variables.
-  
+
   - Create a `sidekiq.rb` file in your  `config/initializers` directory
 
 ```ruby
@@ -114,11 +114,11 @@ bundle exec sidekiq --environment development -C config/sidekiq.yml
 
 ```
 If successful, you'll get a response like the screenshot below
-![sidekiq exec screenshot](images/sidekiq-exec-screenshot.png)
+![sidekiq exec screenshot](/images/sidekiq-exec-screenshot.png)
 
 ## Execute first job with Sidekiq
 
-Now that we've successfully setup sidekiq, let's create and execute our first job. Note: Background jobs in sidekiq are referred to as `sidekiq workers`. 
+Now that we've successfully setup sidekiq, let's create and execute our first job. Note: Background jobs in sidekiq are referred to as `sidekiq workers`.
 
   - Add a worker in app/workers to process jobs asynchronously
   We'll create a job that logs welcome message for a new entry in the guestbook.
@@ -151,7 +151,7 @@ class Entry < ActiveRecord::Base
   def send_welcome_message
     WelcomeMessageWorker.perform_async(self.name)
   end
-  
+
 end
 ```
 
@@ -163,8 +163,8 @@ You can also create a job to be processed in the future:
   end
 ```
 See screenshots below for responses when we create an entry from the console:
-![New entry on console screenshot](images/new-entry-screenshot.png)
-![Sidekiq response screenshot](images/sidekiq-response-screenshot.png)
+![New entry on console screenshot](/images/new-entry-screenshot.png)
+![Sidekiq response screenshot](/images/sidekiq-response-screenshot.png)
 
 ## Send email using Sidekiq & ActionMailer
 
@@ -181,7 +181,7 @@ EntryMailer.delay.welcome(@entry.id)
 ```ruby
 EntryMailer.delay_for(1.day).activate(@entry.id)
 ```
- 
+
  - .delay_until(timestamp)
 ```ruby
 EntryMailer.delay_until(3.days.from_now).re_engage(@entry.id)
@@ -200,21 +200,21 @@ Rails.application.routes.draw do
 
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
-  
+
 end
 ```
 Your sidekiq web ui for monitoring your backgrounds will be available at `localhost:3000/sidekiq`
 
 See screenshot below:
-![Sidekiq-web-ui](images/sidekiq-web-ui.png)
+![Sidekiq-web-ui](/images/sidekiq-web-ui.png)
 
 On a production app, it's ideal that only an admin or authenticated user should be able to visit the sidekiq web ui. To set that up, see [this doc](https://github.com/mperham/sidekiq/wiki/Monitoring#authentication).
 
-That's all for now. I'm a fan of how straightforward it is to setup Sidekiq on a new rails app, get the web ui with 2 lines of code and the fact that it retries failed jobs on it's own. 
+That's all for now. I'm a fan of how straightforward it is to setup Sidekiq on a new rails app, get the web ui with 2 lines of code and the fact that it retries failed jobs on it's own.
 
 I'll be following up on this with the part 2 on switching from an existing Resque based backgrounds jobs system to Sidekiq and possibly run a benchmark test on both performances.
 
-Let me know what your thoughts are on Sidekiq and if you'll be trying it. If you have any questions on setting up, buzz me on [@MsEOlatunde](https://twitter.com/MsEOlatunde). 
+Let me know what your thoughts are on Sidekiq and if you'll be trying it. If you have any questions on setting up, buzz me on [@MsEOlatunde](https://twitter.com/MsEOlatunde).
 
 
 
