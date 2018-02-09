@@ -7,7 +7,7 @@ copyright = "&copy; <a href=\"https://github.com/esteedqueen\">Esther Olatunde</
 googleAnalytics = ""
 # Number of posts per page
 Paginate = 5
-enableRobotsTXT = true 
+enableRobotsTXT = true
 
 [[menu.main]]
     name = "About"
@@ -21,7 +21,7 @@ customCSS = ["css/custom.css"]
 
 [params.info]
 adsense = "" # Adsense ID (ID only, without ca-pub-)
-enableSocial = false # Adds OpenGraph and Twitter cards
+enableSocial = true # Adds OpenGraph and Twitter cards
 homeTitle = "Esther Olatunde's Personal Website"
 poweredby = false # Adds powered by Hugo and Kiss below Copyright section
 
@@ -42,6 +42,4 @@ twitter = "MsEOlatunde"
 category = "categories"
 tag = "tags"
 
-[blackfriday]
-hrefTargetBlank = true
 
