@@ -4,6 +4,8 @@ date = "2018-01-14"
 type = "page"
 +++
 
+{{< figure src="/images/esther.png" class="avatar is-mobile" >}}
+
 Hi, I’m Esther Olatunde - a fullstack software engineer from Lagos, Nigeria.
 
 I co-founded [Tress](https://www.tressapp.co/) (YC W2017) as the CTO/Engineering Lead.
