@@ -12,18 +12,7 @@
                 <li> <a class="nav-item" href="{{ .URL }}">{{ .Name }}</a> </li>
               {{ end }}
             </ul>
-          {{ end }}          
-          {{- range $platform, $username := .Site.Params.social -}}
-          {{- if $username -}}
-            <a class="level-item" href='{{ print ( index $.Site.Data.theme.social.base $platform ) $username }}' target='_blank' rel='noopener'>
-            <span class="icon">
-              <i class>
-                {{- partial "svg/icons" $platform -}}                
-              </i>
-            </span>
-          </a>
-          {{- end -}}
-          {{- end -}}
+          {{ end }}
         </nav>
       </div>
     </nav>

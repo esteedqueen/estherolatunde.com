@@ -18,7 +18,7 @@ In a typical production app, there's a possibility of processing hundreds of job
 I've been using [Resque](https://github.com/resque/resque) for a while but recently made a switch to [Sidekiq](https://github.com/mperham/sidekiq) on a few apps. I initially wanted to write about the switch but I soon realized that the knowledge of introducing Sidekiq to a new project is important and the post became really long so I decided to split it. In this post, I'm going to show you how to use Sidekiq for your background jobs on a new rails app. And in part 2, I'll write about switching from an existing app on Resque to Sidekiq.
 
 ## Why Sidekiq?
-I made the move for two reasons:
+I made the move for 3 reasons:
 
   1. Failed jobs on Resque:
 ![Failed jobs on Resque](/images/resquefailedjobs.png)
@@ -52,7 +52,7 @@ Redis 2.8 or greater is required. 3.0.3+ is recommended for large installations 
 $ brew install redis
 ```
 
-   - If you your different apps on the local redis server environment on your machine. You need to add the gem ‘redis-namespace’ to namespace the redis keys via sidekiq.  Otherwise sidekiq will try to execute tasks from one application with another application’s codebase.
+   - If you run different apps on the local redis server environment on your machine. You need to add the gem ‘redis-namespace’ to namespace the redis keys via sidekiq.  Otherwise sidekiq will try to execute tasks from one application with another application’s codebase.
 
 ```ruby
 gem 'redis-namespace'
@@ -60,13 +60,12 @@ gem 'redis-namespace'
 
 ### Setup Sidekiq
 
-  1. Add sidekiq to your Gemfile and run `bundle`:
+  - Add sidekiq to your Gemfile and run `bundle`:
 
 ```ruby
 gem 'sidekiq'
 ```
-
-  2. Setup Sidekiq's Redis client and server in an inititalizer
+  - Setup Sidekiq's Redis client and server in an inititalizer
 
 Sidekiq uses Redis to store all of its job and operational data.
 
@@ -90,7 +89,7 @@ By default, Sidekiq tries to connect to Redis at localhost:6379. For production 
 
 ```
 
-  3. Setup `config/sidekiq.yml` - if you require advanced setup
+  - Setup `config/sidekiq.yml` - if you require advanced setup
 
 ```yaml
 ---
@@ -100,10 +99,10 @@ By default, Sidekiq tries to connect to Redis at localhost:6379. For production 
   - mailers
 ```
 
-  4. If you use ActiveJob for your rails background jobs, you can configure sidekiq to work with ActiveJob. See [doc](https://github.com/mperham/sidekiq/wiki/Active+Job) to config Sidekiq to work with ActiveJob. I skipped this in my setup
+  - If you use ActiveJob for your rails background jobs, you can configure sidekiq to work with ActiveJob. See [doc](https://github.com/mperham/sidekiq/wiki/Active+Job) to config Sidekiq to work with ActiveJob. I skipped this in my setup
 
 
-  5. Run Sidekiq
+  - Run Sidekiq
 
 ```
 bundle exec sidekiq --environment development

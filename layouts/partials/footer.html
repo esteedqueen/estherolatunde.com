@@ -1,0 +1,29 @@
+<section class="section">
+  <div class="container has-text-centered">
+    <div class="nav nav-footer">
+      <div class="nav-left">
+        <nav class="nav-item level is-mobile">
+          {{- range $platform, $username := .Site.Params.social -}}
+          {{- if $username -}}
+          <a class="level-item" href='{{ print ( index $.Site.Data.theme.social.base $platform ) $username }}' target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class>
+                {{- partial "svg/icons" $platform -}}
+              </i>
+            </span>
+          </a>
+          {{- end -}}
+          {{- end -}}
+        </nav>
+      </div>
+      <div class="nav-right">
+        <p class="u_padding--default">{{ .Site.Copyright | safeHTML }}</p>
+        {{if .Site.Params.Info.poweredby}}
+          <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

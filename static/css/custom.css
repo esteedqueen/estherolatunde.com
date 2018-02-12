@@ -9,3 +9,7 @@ a {
 a:hover, a:focus, a:visited {
   color: #d3ab9e;
 }
+
+.nav-right .u_padding--default{
+  padding: 20px;
+}
