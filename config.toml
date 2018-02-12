@@ -4,10 +4,14 @@ title = "Esther Olatunde"
 
 theme = "kiss"
 copyright = "&copy; <a href=\"https://github.com/esteedqueen\">Esther Olatunde</a> 2018"
-googleAnalytics = ""
+googleAnalytics = "UA-113891354-1"
 # Number of posts per page
 Paginate = 5
 enableRobotsTXT = true
+
+[author]
+name = "Esther Olatunde"
+email = "ea.olatunde@gmail.com"
 
 [[menu.main]]
     name = "About"
@@ -31,12 +35,13 @@ appID = ""
 pageID = ""
 
 [params.opengraph.twitter]
-page = "" # Twitter Page username. If not set, params.social.twitter will be used.
+page = "MsEOlatunde" # Twitter Page username. If not set, params.social.twitter will be used.
 
 [params.social]
 
 github = "esteedqueen"
 twitter = "MsEOlatunde"
+email = "ea.olatunde@gmail.com"
 
 [taxonomies]
 category = "categories"

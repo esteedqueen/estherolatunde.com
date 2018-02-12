@@ -12,6 +12,9 @@
 {{ if .Site.Params.Info.enableSocial }}
 {{- partial "social/opengraph" . -}}
 {{ end }}
+{{ if .Site.GoogleAnalytics }}
+{{- partial "ga.html" . -}}
+{{ end }}
 <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/style.css"/>
 {{- range .Site.Params.Assets.customCSS -}}
 <link rel='stylesheet' href='{{ . | relURL }}'>
