@@ -13,3 +13,11 @@ a:hover, a:focus, a:visited {
 .nav-right .u_padding--default{
   padding: 20px;
 }
+
+.avatar {
+  width: 150px;
+}
+
+.u_read-more-link {
+  height:28px;
+}

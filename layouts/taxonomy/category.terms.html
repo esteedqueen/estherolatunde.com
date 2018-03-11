@@ -1,0 +1,15 @@
+{{ partial "header" . }}
+{{ partial "nav" . }}
+
+<section class="section">
+  <div class="container">
+    <ul id="all-categories">
+      {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+        <li><a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}">{{ $name }}</a></li>
+      {{ end }}
+    </ul>
+  </div>
+</section>
+
+{{ partial "pager" . }}
+{{ partial "footer" . }}

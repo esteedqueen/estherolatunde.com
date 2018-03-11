@@ -1,8 +1,8 @@
 {{ partial "header" . }}
 {{ partial "nav" . }}
+
 <section class="section">
   <div class="container">
-    <!-- Space delimited list of page types -->
     {{ $paginator := .Paginate (where .Data.Pages "Type" "in" "post") }}
     {{ range sort .Paginator.Pages }}
     <article>
@@ -11,7 +11,7 @@
       <div class="content">
         {{ .Summary | plainify | safeHTML }}
         {{ if .Truncated }}
-        <a class="button is-link" href="{{ .Permalink }}" style="height:28px">
+        <a class="button is-link u_read-more-link" href="{{ .Permalink }}">
           Read more
           <span class="icon is-small">
             <i class="fa fa-angle-double-right"></i>
@@ -23,5 +23,6 @@
     {{ end }}
   </div>
 </section>
+
 {{ partial "pager" . }}
 {{ partial "footer" . }}
