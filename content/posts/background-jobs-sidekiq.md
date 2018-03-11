@@ -13,26 +13,26 @@ Background jobs in rails applications make our development lives easier.
 
 We rely on them for a lot of things - common use cases include sending emails, push notifications, processing 3rd party API interactions, transactions and long-running requests that tie up server resources.
 
-In a typical production app, there's a possibility of processing hundreds of jobs per second under normal circumstances and thousands depending on the number of users and campaign going on.
+In a typical production app, there's a possibility of processing hundreds of jobs per second under normal circumstances and thousands depending on the number of users and campaign(s) going on.
 
-I've been using [Resque](https://github.com/resque/resque) for a while but recently made a switch to [Sidekiq](https://github.com/mperham/sidekiq) on a few apps. I initially wanted to write about the switch but I soon realized that the knowledge of introducing Sidekiq to a new project is important and the post became really long so I decided to split it. In this post, I'm going to show you how to use Sidekiq for your background jobs on a new rails app. And in part 2, I'll write about switching from an existing app on Resque to Sidekiq.
+I've been using [Resque](https://github.com/resque/resque) for a while but recently made a switch to [Sidekiq](https://github.com/mperham/sidekiq) on a few apps. I initially wanted to write about the switch but I soon realized that the knowledge of introducing Sidekiq to a new project is important and the post became really long so I decided to split it up. In this post, I'm going to show you how to use Sidekiq for your background jobs on a new rails app. And in part 2, I'll write about switching from an existing app on Resque to Sidekiq.
 
 ## Why Sidekiq?
 I made the move for 3 reasons:
 
   1. Failed jobs on Resque:
-![Failed jobs on Resque](/images/resquefailedjobs.png)
+![Failed jobs on Resque on a simple app](/images/resquefailedjobs.png)
 
-  2. Performance: Apart from dealing with lots of failed jobs, this chart on  Sidekiq [repository](https://github.com/mperham/sidekiq#performance) caught my interest so I decided to give it a try.
+  2. Performance: Apart from dealing with lots of failed jobs, this chart on Sidekiq [repository](https://github.com/mperham/sidekiq#performance) caught my interest so I decided to give it a try.
 ![Performance](/images/sidekiqperformance.png)
 
   3. The developer: I've heard of Sidekiq for a while now but didn't know/care about who was behind it until I read Mike Perham's [story](https://www.indiehackers.com/businesses/sidekiq) on IndieHackers. You should check it out.
 
 ## I'll cover the following:
-  - Sidekiq setup
-  - Execute first job with Sidekiq
-  - Send email asynchroniously using Sidekiq
-  - Monitoring on sidekiq web ui
+  - [Setting up Sidekiq]({{<ref "#setting-up-sidekiq" >}})
+  - [Executing the first job with Sidekiq]({{<ref "#execute-first-job-with-sidekiq" >}})
+  - [Sending email asynchroniously using Sidekiq and Action Mailer]({{<ref "#send-email-using-sidekiq-and-actionmailer" >}})
+  - [Monitoring your background jobs on sidekiq web ui]({{<ref "#monitoring-on-sidekiq-web-ui" >}})
 
 Now let's get started.
 
@@ -45,8 +45,9 @@ All Rails releases >= 4.0 are officially supported.
 
 Redis 2.8 or greater is required. 3.0.3+ is recommended for large installations with thousands of worker threads.
 
+***All the setup instructions in this tutorial assume you're on MacOS and using Homebrew. Your setup steps/commands may vary depending on your development environment's OS.
 ### Setup Redis
-  - Sidekiq uses Redis to store all of its job and operational data. You'll need Redis installed. If you're on MacOS and using Homebrew
+  - Install Redis. Sidekiq uses Redis to store all of its job and operational data. You'll need Redis installed.
 
 ```
 $ brew install redis
@@ -69,14 +70,14 @@ gem 'sidekiq'
 
 Sidekiq uses Redis to store all of its job and operational data.
 
-By default, Sidekiq tries to connect to Redis at localhost:6379. For production app, you will need to setup env variables.
+By default, Sidekiq tries to connect to Redis at localhost:6379 on your development environment. Before you deploy to production, you will need a to create/provision a production redis server and include the server's url in your env variables.
 
   - Create a `sidekiq.rb` file in your  `config/initializers` directory
 
 ```ruby
 # config/initializers/sidekiq.rb
 
-  uri = ENV["REDISTOGO_URL"] || "redis://localhost:6379/0"
+  uri = ENV["REDIS_URL"] || "redis://localhost:6379/0"
   app_name = File.basename(Rails.root.to_s)
 
   Sidekiq.configure_server do |config|
@@ -99,12 +100,12 @@ By default, Sidekiq tries to connect to Redis at localhost:6379. For production 
   - mailers
 ```
 
-  - If you use ActiveJob for your rails background jobs, you can configure sidekiq to work with ActiveJob. See [doc](https://github.com/mperham/sidekiq/wiki/Active+Job) to config Sidekiq to work with ActiveJob. I skipped this in my setup
+  - If you use ActiveJob for your Rails background jobs, you can configure sidekiq to work with ActiveJob. See [doc](https://github.com/mperham/sidekiq/wiki/Active+Job) to config Sidekiq to work with ActiveJob. I skipped this in my setup but it's quite easy to setup.
 
 
   - Run Sidekiq
 
-```
+```bash
 bundle exec sidekiq --environment development
 
 OR
@@ -121,7 +122,8 @@ Now that we've successfully setup sidekiq, let's create and execute our first jo
 
   - Add a worker in app/workers to process jobs asynchronously
   We'll create a job that logs welcome message for a new entry in the guestbook.
-```
+
+```bash
 rails g sidekiq:worker WelcomeMessage # will create app/workers/welcome_message_worker.rb
 ```
 
@@ -165,7 +167,7 @@ See screenshots below for responses when we create an entry from the console:
 ![New entry on console screenshot](/images/new-entry-screenshot.png)
 ![Sidekiq response screenshot](/images/sidekiq-response-screenshot.png)
 
-## Send email using Sidekiq & ActionMailer
+## Send email using Sidekiq and ActionMailer
 
 You can send emails asynchronously with Action Mailer out of the box with Sidekiq using. Sidekiq has included three methods to the ActionMailer module.
 
@@ -199,7 +201,7 @@ Rails.application.routes.draw do
 
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
-
+...
 end
 ```
 Your sidekiq web ui for monitoring your backgrounds will be available at `localhost:3000/sidekiq`
@@ -213,7 +215,7 @@ That's all for now. I'm a fan of how straightforward it is to setup Sidekiq on a
 
 I'll be following up on this with the part 2 on switching from an existing Resque based backgrounds jobs system to Sidekiq and possibly run a benchmark test on both performances.
 
-Let me know what your thoughts are on Sidekiq and if you'll be trying it. If you have any questions on setting up, buzz me on [@MsEOlatunde](https://twitter.com/MsEOlatunde).
+Let me know what your thoughts are on Sidekiq and if you'll be giving it a try. If you have any questions on setting up, buzz me on [@MsEOlatunde](https://twitter.com/MsEOlatunde).
 
 
 
