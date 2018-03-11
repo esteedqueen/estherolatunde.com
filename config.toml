@@ -44,7 +44,7 @@ twitter = "MsEOlatunde"
 email = "ea.olatunde@gmail.com"
 
 [taxonomies]
-category= "categories"
-tag= "tags"
+category = "categories"
+tag = "tags"
 
 

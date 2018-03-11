@@ -17,3 +17,7 @@ a:hover, a:focus, a:visited {
 .avatar {
   width: 150px;
 }
+
+.u_read-more-link {
+  height:28px;
+}
