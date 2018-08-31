@@ -26,7 +26,7 @@ customCSS = ["css/custom.css"]
 [params.info]
 adsense = "" # Adsense ID (ID only, without ca-pub-)
 enableSocial = true # Adds OpenGraph and Twitter cards
-homeTitle = "Esther Olatunde's Personal Website"
+homeTitle = "Esther's Blog"
 poweredby = false # Adds powered by Hugo and Kiss below Copyright section
 
 [params.opengraph.facebook]
