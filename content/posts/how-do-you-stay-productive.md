@@ -9,10 +9,7 @@ tags:
   - time-management
 ---
 
-At [Happy Bear Software](https://www.happybearsoftware.com/), we have this writing series where each member on the team is asked a question and we write down our answers in approx 300words.
-
-I really love the question prompts and my answers so I thought that I might as well share them here. Here's my answer to "How do you stay productive as a developer?", this one is definitely more than 300 words :)
-
+Here's my answer to "How do you stay productive as a developer?", this one is definitely more than 300 words :)
 
 
 > I’m one of those people with lists of goals for the year, month, 5 years plan, etc. I started this habit at 16 on pen and paper. Of course, when life happens, I always question why I still write down my plans/goals? :facepalm: I think I need to do that to have a sense of direction, some sort of control - otherwise, I’d be a complete mess.

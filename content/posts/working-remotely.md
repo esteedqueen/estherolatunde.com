@@ -9,11 +9,6 @@ tags:
   - hbs-writing-series
 ---
 
-At [Happy Bear Software](https://www.happybearsoftware.com/), we have this writing series where each member on the team is asked a question and we write down our answers in approx 300words.
-
-I really love the question prompts and my answers so I thought that I might as well share them here. Here's my answer to "How do you stay productive as a developer?":
-
-
 > I love remote work because it allows me to optimize my daily work routine for when I’m most productive.
 >
 > I also like how the focus of remote work is much more about the work you’re able to produce than anything else - so it's quite effective.
@@ -28,4 +23,4 @@ I really love the question prompts and my answers so I thought that I might as w
 >
 > Lastly, on the plus side, remote work extends your network - I get to work with an amazing team of people I would otherwise might not have met physically so that's awesome!
 
-[Read more about how we make working remotely work for us](https://www.happybearsoftware.com/thoughts-on-remote-working)
+[Read more about how we make working remotely work for us.](https://www.happybearsoftware.com/thoughts-on-remote-working)
