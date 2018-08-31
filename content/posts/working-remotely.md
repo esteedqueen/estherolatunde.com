@@ -23,4 +23,5 @@ tags:
 >
 > Lastly, on the plus side, remote work extends your network - I get to work with an amazing team of people I would otherwise might not have met physically so that's awesome!
 
-[Read more about how we make working remotely work for us.](https://www.happybearsoftware.com/thoughts-on-remote-working)
+This first appeared in a writing series with my colleagues at Happy Bear Software.
+[Read more about how the rest of the team work remotely.](https://www.happybearsoftware.com/thoughts-on-remote-working)
