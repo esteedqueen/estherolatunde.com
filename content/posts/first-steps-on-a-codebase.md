@@ -1,7 +1,11 @@
 ---
 title: "What are your first steps when looking at a new codebase?"
 date: 2017-11-22T00:33:22+01:00
-draft: true
+draft: false
+type: "post"
+tags:
+  - hbs-writing-series
+  - getting-start-on-new-codebase
 ---
 
 > When looking at a new codebase, the first thing I look out for is the docs for getting set up. If none exists, I ping the contact person to find out how to get set up. It’s important to always document what worked/didn’t work for me while getting setup because sometimes, even on a repo with documentation, the original developer(s) may have missed documenting a key component because they were writing the doc with loads of context and local libraries/packages that a developer new to the codebase might not have. Setting up can sometimes take forever, this is one of the reasons why I appreciate the concept of automating your development environment for a codebase as it gets complex beyond a simple Rails app setup.
