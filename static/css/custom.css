@@ -21,3 +21,7 @@ a:hover, a:focus, a:visited {
 .u_read-more-link {
   height:28px;
 }
+
+.subtitle+.title {
+    margin-top: 20px;
+}
