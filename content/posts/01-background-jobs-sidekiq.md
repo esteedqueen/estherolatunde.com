@@ -169,7 +169,7 @@ See screenshots below for responses when we create an entry from the console:
 
 ## Send email using Sidekiq and ActionMailer
 
-You can send emails asynchronously with Action Mailer out of the box with Sidekiq using. Sidekiq has included three methods to the ActionMailer module.
+You can send emails asynchronously with Action Mailer out of the box with Sidekiq. Sidekiq has included three methods to the ActionMailer module.
 
 They are:
 
@@ -178,7 +178,7 @@ They are:
 EntryMailer.delay.welcome(@entry.id)
 ```
 
-  - .delay_for(interval)
+- .delay_for(interval)
 ```ruby
 EntryMailer.delay_for(1.day).activate(@entry.id)
 ```
