@@ -7,7 +7,7 @@
       <div class="nav-right">
         <nav class="nav-item level is-mobile">
           {{- if .Site.Menus.main -}}
-            <ul>
+            <ul class="top-nav">
               {{ range .Site.Menus.main }}
                 <li> <a class="nav-item" href="{{ .URL }}">{{ .Name }}</a> </li>
               {{ end }}
