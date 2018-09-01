@@ -25,3 +25,7 @@ a:hover, a:focus, a:visited {
 .subtitle+.title {
     margin-top: 20px;
 }
+
+ul.top-nav {
+  display: inherit;
+}

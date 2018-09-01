@@ -19,6 +19,10 @@ email = "ea.olatunde@gmail.com"
     identifier = "about"
     url = "/about/"
 
+[[menu.main]]
+    name = "TIL"
+    identifier = "today-i-learnt"
+    url = "/categories/today-i-learnt/"
 
 [params.assets]
 customCSS = ["css/custom.css"]
