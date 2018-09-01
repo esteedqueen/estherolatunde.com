@@ -1,6 +1,6 @@
 ---
 title: "How I Prioritise What To Learn"
-date: 2017-11-01
+date: 2017-11-17
 draft: false
 type: "post"
 tags:
