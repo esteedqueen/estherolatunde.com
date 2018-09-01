@@ -1,6 +1,6 @@
 ---
 title: "Migrate Rails App From Heroku to AWS Elastic Beanstalk"
-date: 2018-03-29T10:59:33+01:00
+date: 2018-09-01
 draft: false
 type: "post"
 tags:
