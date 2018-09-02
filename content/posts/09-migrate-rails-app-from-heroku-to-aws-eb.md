@@ -16,26 +16,28 @@ tags:
   - background jobs
 ---
 
-In this article, I will document the process of how I helped a small startup with tens of thousands of users and data migrate their Ruby on Rails application from Heroku to [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) with no loss of data and service.
+In this article, I will document the process of how I helped a small startup with tens of thousands of users and data migrate their Ruby on Rails application from [Heroku](https://heroku.com/) to [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) with no loss of data and service.
 
-The application I migrated was a typical production Ruby on Rails stack: Ruby on Rails backend/API (production and staging environments with Android, iOS and web clients), PostgreSQL database, Sidekiq for processing background jobs, Redis Cluster, AWS S3, A couple of Node microservices and custom domain names with wildcard SSL certificate. It was setup on Heroku with a couple of performance-m(web) and standard(worker) dynos and a few heroku add-ons.
+The application I migrated was a typical production Rails stack: Ruby on Rails backend/API (production and staging environments with Android, iOS and web clients), PostgreSQL database, Sidekiq for processing background jobs, Redis Cluster, AWS S3, A couple of Node microservices and custom domain names with wildcard SSL certificate. It was setup on Heroku with a couple of performance-m(web) and standard(worker) dynos and a few heroku add-ons.
 
 I'll cover the following:
 
   - [How to Setup and Deploy a Rails app on AWS Elastic Beanstalk](#How-to-Setup-and-Deploy-a-Rails-app-on-AWS-Elastic-Beanstalk)
   - [How to Setup a new Database and also Migrate Existing PostgreSQL Database from Heroku to AWS RDS](#Database-Setup-and-Migration)
-  - How to Setup Sidekiq on AWS Elastic Beanstalk to run Background Jobs on Elastic Cache Redis Cluster (coming soon)
+  - [How to Setup Sidekiq on AWS Elastic Beanstalk to run Background Jobs on Elastic Cache Redis Cluster](#Setup-Sidekiq-on-ElasicCache-Cluster) (coming soon)
   - How to point the app on AWS Elastic Beanstalk to a custom domain and configure SSL for the app using AWS Certificate Manager (coming soon)
   - How to Access the Rails console on AWS Elastic Beanstalk (coming soon)
   - Elastic Beanstalk shortcuts (equivalents of what developers love on Heroku) (coming soon)
 
-I will also try to highlight a few issues/gotchas I experienced in each of the steps above. However, if you encounter any issues, feel free to drop a note and I'll be happy to help.
+I'll also include how to manage multiple environments (staging and production) and how to handle environment specific changes on Elastic Beanstalk.
+
+For an application with a production environment that is actively used, it's advisable that you complete a full migration with a functioning staging environment first. Test the newly migrated staging application for a few days. Ensure the database, services, background job, logs, etc. work as they should before replicating the setup for the production environment.
 
 This guide can also double as a how-to guide to deploy a new Rails app to AWS Elastic Beanstalk. You can just choose the parts that are relevant to you. So, let's begin!
 
 # How to Setup and Deploy a Rails app on AWS Elastic Beanstalk {#How-to-Setup-and-Deploy-a-Rails-app-on-AWS-Elastic-Beanstalk}
 
-- Step 1: Install the AWS Elastic Beanstalk CLI via Homebrew
+## Step 1: Install the AWS Elastic Beanstalk CLI via Homebrew
 
 ```bash
 brew update
@@ -50,7 +52,7 @@ pip install awsebcli --upgrade --user
 
 See [doc](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html) for more details.
 
-- Step 2: Initialize AWS Elastic Beanstalk for your application.
+## Step 2: Initialize AWS Elastic Beanstalk for your application.
 From the home directory of the Rails app you want to deploy, run the command below:
 
 ```bash
@@ -127,11 +129,12 @@ For the purpose of this article, my choices above were used for a sample applica
 
 Running through the above steps generates a `.elasticbeanstalk/` folder in the root folder of your application and modifies your `.gitignore` to ignore the `.elasticbeanstalk/` folder and its contents from being commited to git.
 
-* Gotcha 1: If you made a mistake in any of the `eb init` steps above, you can just delete the `.elasticbeanstalk/` and run `eb init` again.
+* Protip 1: If you made a mistake in any of the `eb init` steps above, you can just delete the `.elasticbeanstalk/` and run `eb init` again.
 
-* Gotcha 2: When selecting a platform version above, it's important to note that although Elastic Beanstalk refers to the versions as `x.x`, I think it only supports the latest stable release for that particular version. E.g. if you chose version `2.3` and  your applications's ruby version is `2.3.1`, your deployment will not run successfully and you will need to upgrade your application to the latest `2.3` stable release which is `2.3.7`(at this time) to be able to successfully deploy this. You can always refer to the [Elastic Beanstalk Ruby Supported Platforms](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html#concepts.platforms.ruby) to keep updated with this as it [always changes](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platform-history-ruby.html). Weird, I know. It's even annoying that the error message in the EB deployment logs doesn't make this clear.
+* Protip 2: When selecting a platform version above, it's important to note that although Elastic Beanstalk refers to the versions as `x.x`, I think it only supports the latest stable release for that particular version. E.g. if you chose version `2.3` and  your applications's ruby version is `2.3.1`, your deployment will not run successfully and you will need to upgrade your application to the latest `2.3` stable release which is `2.3.7`(at this time) to be able to successfully deploy this. You can always refer to the [Elastic Beanstalk Ruby Supported Platforms](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html#concepts.platforms.ruby) to keep updated with this as it [always changes](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platform-history-ruby.html). Weird, I know. It's even annoying that the error message in the EB deployment logs doesn't make this clear.
 
-- Step 3: Deploy your application
+
+## Step 3: Deploy the application
 
 Let's create the staging and production environments:
 
@@ -166,13 +169,12 @@ Printing Status:
 ...
 ```
 
-You'll still get some errors as we haven't set up the `SECRET_KEY_BASE` environment credentials.
+The applications we just created will not successfully build due to some errors as we haven't set up the `SECRET_KEY_BASE` environment credentials.
 
-Protip: You can switch between environments using the `eb use environment-name` command to switch between environments when you want make environment specific changes.
-
-- Step 4 - Set environment variables/credentials
+## Step 4: Set environment variables/credentials
 
 Option 1: Via the dashboard
+
 - Login to AWS console
 - Select Elastic Beanstalk
 - Go to the AWS region you select,
@@ -186,25 +188,117 @@ Option 2: Set the env vars via the command line using the `eb setenv` command:
 eb setenv SECRET_KEY_BASE=$(rails secret)
 ```
 
-Protip:
+Now you should be able to access the applications via the elasticbeanstalk application URLs by running `eb open environment-name` but we need to continue with creating the database before we can get fully functioning applications.
 
-If you have multiple environment variables in a file such as `.env` or `.env.staging` for production and staging environments, you can set them on Elastic Beanstalk via the command line using the commands below:
+
+# How to Setup a new Database and Migrate Existing PostgreSQL Database from Heroku to AWS RDS {#Database-Setup-and-Migration}
+
+## Setup
+
+1. Create an RDS instance on AWS
+
+Login to the AWS console to create an RDS instance --> Select the PostgreSQL engine -> Specify DB Details (postgres version, instance name, username and password) --> the rest of the configuration details.
+
+A few things to note:
+
+- The RDS instances should be in the same region as your Elastic Beanstalk application
+
+- Ensure you set the RDS instance to be publicly accessible, use the default VPC Security Group or create a new Security Group and then set the TCP port 5342 to be accessible anywhere.
+
+Provisioning of the database instance will take a few minutes to launch.
+
+2. Database configuration
+
+Update `config/database.yml` with production and staging RDS credentials.
+
+```
+# config/database.yml
+...
+
+production:
+  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
+
+staging:
+  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+```
+
+Then update the environment credentials with database configs.
+
+Your .env file should now look like similar to this:
+
+```
+# .env.staging
+
+BUNDLE_WITHOUT=test:development
+RACK_ENV=staging
+RAILS_ENV=staging
+RAILS_SKIP_MIGRATIONS=false
+RAILS_SKIP_ASSET_COMPILATION=false
+SECRET_KEY_BASE=blahblahblah12345690
+RDS_USERNAME=username
+RDS_DB_NAME=db-name-staging
+RDS_PASSWORD=password
+RDS_PORT=5432
+RDS_HOSTNAME=db-name-staging.blahsblahs.eu-west-1.rds.amazonaws.com
+```
+
+* Protip 3:
+
+To set multiple environment variables contained in a .env file at once via the command line:
 
 ```bash
-eb setenv `cat .env-file`
+eb setenv `cat .env.production`
 
 OR
 
 eb setenv `cat .env.staging`
 
-# Depending on the file name and the environment you're currently on.
+```
+This depends on the .env file name and the elasticbeanstalk environment you're currently on.
+
+
+* Protip 4: You can switch between environments using the `eb use environment-name` command to when you want make environment specific changes.
+
+## Migrate Exisiting Database from Heroku to RDS
+
+1. Turn on maintenance mode on Heroku to prevent further write to the database.
+
+```bash
+heroku maintenance:on -a <app_name>
 ```
 
-At this point, you should be able to access the apps via the elasticbeanstalk application URLs by running `eb open environment-name` but we need continue with creating the database before you can get fully functioning applications.
+2. Capture backup on Heroku and dump backup to a local file
+
+```bash
+heroku pg:backups capture -a <app-name>
+curl -o path-to-staging-heroku-db-dump-file `heroku pg:backups public-url -r staging`
+```
+
+3. Use pg_restore to dump the local database to the AWS RDS remote database
+
+```bash
+pg_restore --verbose --clean --no-acl --no-owner -h RDS_DB_HOST -U RDS_USER -d DB_NAME -j 8 path-to-staging-heroku-db-dump-file
+```
+You'll get a prompt to enter password. Enter the database password.
+
+The restore process will take some time depending on the size of your database
+
+Note: Depending on the version of postgresql on your database, you might get the error: `pg_restore: [archiver] unsupported version (1.13) in file header`. If you do get the error, [check this out for why](https://help.heroku.com/YNH1ZJUS/why-am-i-getting-pg_restore-archiver-unsupported-version-1-13-in-file-header-error-with-pg_restore). Upgrade your local postgresql version then try the above command again.
 
 
-# How to Setup a new Database and also Migrate Existing PostgreSQL Database from Heroku to AWS RDS {#Database-Setup-and-Migration}
+# How to Setup Sidekiq on AWS Elastic Beanstalk to run Background Jobs on Elastic Cache Redis Cluster {#Setup-Sidekiq-on-ElasicCache-Cluster}
 
-WIP (coming soon...)
-
-
+(coming soon...)
