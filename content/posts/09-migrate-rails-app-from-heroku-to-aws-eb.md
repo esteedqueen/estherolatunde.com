@@ -31,7 +31,7 @@ I'll cover the following:
 
 I'll also include how to manage multiple environments (staging and production) and how to handle environment specific changes on Elastic Beanstalk.
 
-For an application with a production environment that is actively used, it's advisable that you complete a full migration with a functioning staging environment first. Test the newly migrated staging application for a few days. Ensure the database, services, background job, logs, etc. work as they should before replicating the setup for the production environment.
+For an application with a production environment that is actively used, I would advise that you complete a full migration with a functioning staging environment first. Test the newly migrated staging application for a few days. Ensure the database, services, background job, logs, etc. work as they should before replicating the setup for the production environment.
 
 This guide can also double as a how-to guide to deploy a new Rails app to AWS Elastic Beanstalk. You can just choose the parts that are relevant to you. So, let's begin!
 
@@ -193,9 +193,9 @@ Now you should be able to access the applications via the elasticbeanstalk appli
 
 # How to Setup a new Database and Migrate Existing PostgreSQL Database from Heroku to AWS RDS {#Database-Setup-and-Migration}
 
-## Setup
+## Setup a new database
 
-1. Create an RDS instance on AWS
+### Create an RDS instance on AWS
 
 Login to the AWS console to create an RDS instance --> Select the PostgreSQL engine -> Specify DB Details (postgres version, instance name, username and password) --> the rest of the configuration details.
 
@@ -205,9 +205,9 @@ A few things to note:
 
 - Ensure you set the RDS instance to be publicly accessible, use the default VPC Security Group or create a new Security Group and then set the TCP port 5342 to be accessible anywhere.
 
-Provisioning of the database instance will take a few minutes to launch.
+Provisioning of the database instance will take a few minutes to complete.
 
-2. Database configuration
+### Database configuration
 
 Update `config/database.yml` with production and staging RDS credentials.
 
@@ -235,9 +235,7 @@ staging:
   host: <%= ENV['RDS_HOSTNAME'] %>
 ```
 
-Then update the environment credentials with database configs.
-
-Your .env file should now look like similar to this:
+Then, update the environment credentials with database config values. Your .env file should now look like similar to this:
 
 ```
 # .env.staging
@@ -270,24 +268,24 @@ eb setenv `cat .env.staging`
 This depends on the .env file name and the elasticbeanstalk environment you're currently on.
 
 
-* Protip 4: You can switch between environments using the `eb use environment-name` command to when you want make environment specific changes.
+* Protip 4: You can switch between elasticbeanstalk environments using the `eb use environment-name` command for when you want to make environment specific changes.
 
 ## Migrate Exisiting Database from Heroku to RDS
 
-1. Turn on maintenance mode on Heroku to prevent further write to the database.
+* Turn on maintenance mode on Heroku to prevent further write to the database.
 
 ```bash
 heroku maintenance:on -a <app_name>
 ```
 
-2. Capture backup on Heroku and dump backup to a local file
+* Capture backup on Heroku and dump backup to a local file
 
 ```bash
 heroku pg:backups capture -a <app-name>
 curl -o path-to-staging-heroku-db-dump-file `heroku pg:backups public-url -r staging`
 ```
 
-3. Use pg_restore to dump the local database to the AWS RDS remote database
+* Use pg_restore to dump the local database to the AWS RDS remote database
 
 ```bash
 pg_restore --verbose --clean --no-acl --no-owner -h RDS_DB_HOST -U RDS_USER -d DB_NAME -j 8 path-to-staging-heroku-db-dump-file
