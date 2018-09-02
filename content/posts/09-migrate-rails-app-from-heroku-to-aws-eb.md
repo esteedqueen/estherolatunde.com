@@ -268,6 +268,18 @@ eb setenv `cat .env.staging`
 This depends on the .env file name and the elasticbeanstalk environment you're currently on.
 
 
+Commit the database config changes to git and deploy the changes to elasticbeanstalk server:
+
+```bash
+eb deploy
+```
+
+If the deployment is not successful, you can check the logs using:
+
+```bash
+eb logs
+```
+
 * Protip 4: You can switch between elasticbeanstalk environments using the `eb use environment-name` command for when you want to make environment specific changes.
 
 ## Migrate Exisiting Database from Heroku to RDS
