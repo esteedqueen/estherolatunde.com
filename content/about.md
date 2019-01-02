@@ -8,9 +8,9 @@ type = "page"
 
 Hi, I’m Esther Olatunde - a software engineer from Lagos, Nigeria.
 
-I co-founded [Tress](https://www.tressapp.co/) (YC W2017) as the CTO/Engineering Lead.
+I’m currently a Full Stack Software Developer at [Lexoo].
 
-I’m currently a Senior Developer at [Happy Bear Software](https://www.happybearsoftware.com/) helping businesses build, maintain and secure custom web applications.
+Prior to that, I co-founded [Tress](https://www.producthunt.com/posts/tress) (YC W2017) as the CTO and worked as a Senior Developer at a [software consultancy firm](https://www.happybearsoftware.com) building products for businesses in the UK.
 
 One of the reasons why I love programming is that I learn new things everyday. It can get a bit crazy but I absolutely love it. I’ve tried keeping records in private gists but that has gotten a bit scattered and sharing is always a good thing :)
 
