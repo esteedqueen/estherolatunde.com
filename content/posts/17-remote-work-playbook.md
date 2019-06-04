@@ -10,6 +10,8 @@ tags:
 
 ### (aka how to get your team started with remote work)
 
+A friend who runs a couple of businesses in Lagos, Nigeria recently asked me to document a guide on how to introduce remote work to his team and I wrote this up. They found it helpful so I thought I might as well share it with y'all as this applies to any business out there who is curious about remote work.
+
 This guide aims to document how to get started with introducing a remote first culture into your company based on my experience running and working in remote teams in the last 4 years.
 
 Why should you give remote work a try? If you’re not convinced of the fact that remote work and having a distributed team is the future, please read this book [Remote: Office Not Required](https://www.amazon.com/Remote-Office-Not-Required/dp/0804137501) and buy it for your employees and managers.
@@ -166,7 +168,7 @@ So what’s next?
 - Introduce the accountability processes
 - Start small - introduce a pilot phase of an optional work from home 1-day a week policy.
 - During this testing phase, ensure the employees working remotely are properly engaged and not second class citizens. Integrate them into everything that’s happening at the office.
-- Monitor and evaluate productivity and impact of remote work on team culture.
+- Monitor and evaluate productivity and the impact of the newly introduced remote work on your team culture.
 - Keep evaluating and iterating on the process and tools until you find a good fit that works for your business and your employees.
 
 If you have specific questions, I’m happy to have a chat and help with a walkthrough of any of the tools and processes.
