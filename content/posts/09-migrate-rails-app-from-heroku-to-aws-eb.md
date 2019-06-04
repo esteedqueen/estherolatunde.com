@@ -311,4 +311,5 @@ Note: Depending on the version of postgresql on your database, you might get the
 
 # How to Setup Sidekiq on AWS Elastic Beanstalk to run Background Jobs on Elastic Cache Redis Cluster {#Setup-Sidekiq-on-ElasicCache-Cluster}
 
-(coming soon...)
+Create an elastic cache redis cluster
+NB: Use the default vpc security group or create a new security group and then for the security group, make the tcp port 5342 accessible anywhere.
