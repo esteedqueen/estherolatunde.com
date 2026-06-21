@@ -3,7 +3,7 @@
 
 <section class="section">
   <div class="container">
-    {{ $paginator := .Paginate (where .Data.Pages "Type" "in" "post") }}
+    {{ $paginator := .Paginate (where .Site.RegularPages "Type" "in" "post") }}
     {{ range $paginator.Pages }}
     <article>
       <h2 class="subtitle is-6">{{ .Date.Format "January 2, 2006" }}</h2>
