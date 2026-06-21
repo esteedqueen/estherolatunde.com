@@ -6,14 +6,16 @@ type = "page"
 
 {{< figure src="/images/esther.png" class="avatar is-mobile" >}}
 
-Hi, I’m Esther Olatunde - a software engineer from Lagos, Nigeria.
+Hi, I'm Esther Olatunde — a software engineer and founder.
 
-I’m currently a Full Stack Software Developer at [Lexoo](https://www.lexoo.co.uk/) - helping to build one of Europe’s leading legal technology companies.
+I started a company straight out of school ([Tress](https://www.producthunt.com/posts/tress), YC W17) and have been building ever since. The work I love most sits at the intersection of systems thinking, product instinct, and design sensibility. I care about the whole picture: how the system performs at 0 and at scale, how the user feels, and whether the thing we're building actually matters.
 
-Prior to that, I co-founded [Tress](https://www.producthunt.com/posts/tress) (YC W2017) as the CTO and worked as a Senior Developer at a [software consultancy firm](https://www.happybearsoftware.com) building products for businesses in the UK.
+Right now, I'm building a new company at the intersection of AI and the messy, high-stakes operational work — regulated, human-in-the-loop — that runs real businesses: the parts where demos don't survive contact with reality. Stealth-ish, more soon.
 
-One of the reasons why I love programming is that I learn new things everyday. It can get a bit crazy but I absolutely love it. I’ve tried keeping records in private gists but that has gotten a bit scattered and sharing is always a good thing :)
+Before that, I spent five years at [Intercom](https://www.intercom.com), most recently leading Knowledge Foundations for [Fin.ai](https://fin.ai), after earlier years shipping 0-to-1 customer engagement products and working deep in distributed systems, infrastructure, and APIs — the kind of problems where a millisecond matters and a bad abstraction haunts you for years.
 
-This blog is an attempt at documenting my thoughts, learnings and journey in a semi-formal / semi-consistent form.
+Outside of work, I'm a trained yoga instructor. It's the one place where my brain finally stops optimizing. Curiosity is probably the thread that connects everything I do — whether I'm digging into Ruby internals, working through Cryptopals, exploring how LLMs actually work under the hood, or holding a pose I couldn't do six months ago. I once built a [simple HTTP server](https://github.com/esteedqueen/simple-http-server) from scratch because it sounded like fun, and somehow ended up giving a RubyConf talk about it. I'm currently learning Irish, French, and Japanese. At the same time. 😅
 
-A few more random tidbits about me: I’m a newbie yogi, I think I change my hairstyles way too often, I've read and I own all the books in the Harry Potter series, I recently built a [simple http web server](https://github.com/esteedqueen/simple-http-server) from scratch with Ruby, I trained a simple ML classifier that identifies different types of hairstyles ;) using Tensorflow, I’m currently building [MuteEveryone.com](https://twitter.com/muteeveryone) and learning about the Ruby internals.
+If you're building something ambitious — especially in applied AI, infra, or anything that breaks in interesting ways at scale — I'd love to talk.
+
+This blog is an attempt at documenting my thoughts, learnings, and journey in a semi-formal, semi-consistent form.

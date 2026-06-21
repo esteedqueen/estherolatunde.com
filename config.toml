@@ -3,7 +3,7 @@ languageCode = "en-us"
 title = "Esther Olatunde"
 
 theme = "kiss"
-copyright = "&copy; <a href=\"https://github.com/esteedqueen\">Esther Olatunde</a> 2019"
+copyright = "&copy; <a href=\"https://github.com/esteedqueen\">Esther Olatunde</a>"
 googleAnalytics = "UA-113891354-1"
 # Number of posts per page
 Paginate = 5
@@ -45,7 +45,7 @@ page = "MsEOlatunde" # Twitter Page username. If not set, params.social.twitter 
 
 github = "esteedqueen"
 twitter = "MsEOlatunde"
-email = "ea.olatunde@gmail.com"
+linkedin = "esther-o-3193a11a"
 
 [taxonomies]
 category = "categories"

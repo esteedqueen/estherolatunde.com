@@ -17,7 +17,7 @@
         </nav>
       </div>
       <div class="nav-right">
-        <p class="u_padding--default">{{ .Site.Copyright | safeHTML }}</p>
+        <p class="u_padding--default">{{ .Site.Copyright | safeHTML }} {{ now.Year }}</p>
         {{if .Site.Params.Info.poweredby}}
           <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
         {{ end }}
