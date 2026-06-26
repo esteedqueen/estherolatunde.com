@@ -8,6 +8,7 @@ googleAnalytics = "UA-113891354-1"
 # Number of posts per page
 Paginate = 5
 enableRobotsTXT = true
+enableGitInfo = true
 
 [author]
 name = "Esther Olatunde"

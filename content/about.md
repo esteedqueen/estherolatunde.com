@@ -1,6 +1,6 @@
 +++
 title = "About Me"
-date = "2018-01-14"
+date = "2026-06-25"
 type = "page"
 +++
 
