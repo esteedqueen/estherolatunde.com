@@ -13,7 +13,7 @@ tags:
 
 There's a specific kind of dread that shows up right before you change one line
 of config in production. In my case the line was a feature flag that decides
-which provider actually runs our LLM calls — the ones that read real customer
+which provider actually runs our LLM calls - the ones that read real customer
 documents and make decisions about them. Migrating to the new provider was the
 easy part. Weeks of code, sure, but code you can review. The scary part was the
 moment I'd set that flag to `true` and real traffic would start flowing through
@@ -39,7 +39,7 @@ catches the dumb regressions fast and it's cheap enough to run constantly.
 
 Fixtures don't tell you whether the model is actually *right*. A
 response can be perfectly shaped and completely wrong. Fixtures keep you honest
-about plumbing, but not about judgment. If you stop here and a lot of teams do,
+about plumbing, but not about judgment. If you stop here (and a lot of teams do),
 you've built a test suite that passes confidently while the product degrades.
 
 ## Rung two: golden datasets from real documents
@@ -96,6 +96,6 @@ you demo it, a few happy-path inputs, looks great, ship. That's a trap. The
 model doesn't fail on your happy path; it fails on the long tail you never looked
 at, quietly, in a perfectly-shaped response.
 
-Build the harness, build the ladder. Fixtures to catch the dumb stuff constantly. A golden set of real, ugly inputs to measure actual correctness. And when you migrate anything - provider, model, prompt strategy, a parity run so the decision to ship is a diff and not a gut feeling. Evals aren't the thing that slows you down before a big
+Build the harness, build the ladder. Fixtures to catch the dumb stuff constantly. A golden set of real, ugly inputs to measure actual correctness. And when you migrate anything (provider, model, prompt strategy), a parity run so the decision to ship is a diff and not a gut feeling. Evals aren't the thing that slows you down before a big
 change. They're the thing that lets you make the change and feel bored about it.
 And boring, in production, is the whole point.
