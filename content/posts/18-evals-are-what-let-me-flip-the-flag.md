@@ -96,6 +96,6 @@ you demo it, a few happy-path inputs, looks great, ship. That's a trap. The
 model doesn't fail on your happy path; it fails on the long tail you never looked
 at, quietly, in a perfectly-shaped response.
 
-Build the harness, build the ladder. Fixtures to catch the dumb stuff constantly. A golden set of real, ugly inputs to measure actual correctness. And when you migrate anything (provider, model, prompt strategy), a parity run so the decision to ship is a diff and not a gut feeling. Evals aren't the thing that slows you down before a big
+Build the harness, build the ladder. Fixtures to catch the dumb stuff constantly. A golden set of real, ugly inputs to measure actual correctness. And when you migrate anything (provider, model, prompt strategy), a parity run so the decision to ship is a diff and not a gut feeling. Evals shouldn't be perceived as the thing that slows you down before a big
 change. They're the thing that lets you make the change and feel bored about it.
 And boring, in production, is the whole point.
